@@ -1,0 +1,65 @@
+﻿@page
+@model OpremiSe.Pages.Trgovina.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+@if (User.IsInRole("Administrator"))
+{
+    <p>
+        <a asp-page="Create">Dodaj nov produkt</a>
+    </p>
+}
+
+<div class="container">
+    <div class="row d-flex align-items-stretch">
+        @foreach (var item in Model.Produkti)
+        {
+            <div class="col-md-4 mb-4 d-flex">
+                <div class="card">
+
+                    <img src="~/Images/download.png" class="card-img-top" alt="@item.Naziv" style="height: 200px; object-fit: cover;">
+
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@item.Naziv</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@item.Kategorija</h6>
+                        <p class="card-text">@item.Opis</p>
+                        <p class="card-text"><strong>Cena:</strong> @item.Cena.ToString("C")</p>
+
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <p class="card-text"><strong>Količina:</strong> @item.Kolicina</p>
+                            <div class="mt-auto">
+                                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary">Spremeni</a>
+                                <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-secondary">Podrobnosti</a>
+                                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Zbriši</a>
+                            </div>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <form method="post">
+                            <input type="hidden" name="productId" value="@item.Id" />
+                            <input type="number" name="quantity" value="1" />
+                            <button class="addToCart" type="submit" asp-page-handler="AddToCart">Dodaj</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post">
+                                <input type="hidden" name="productId" value="@item.Id" />
+                                <input type="number" name="quantity" value="1" />
+                                <a class="addToCart" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                            </form>
+                        }
+                        
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

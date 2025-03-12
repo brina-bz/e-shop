@@ -1,0 +1,29 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body class="index">
+
+    <div class="text">
+        <p>Vsa oprema na enem mestu.</p>
+    </div>
+    <div class="btn">
+        <a asp-area="" asp-page="/Trgovina/Index"><button type="button" class="btn btn-secondary">Opremi se</button></a>
+        
+    </div>
+    
+
+    <section class ="adds">
+        <div class="footerImage">
+        <img src="./images/ad1.png" />
+        <img src="./images/ad2.png" />
+        <img src="./images/ad3.png" />
+    </div>
+    </section>
+</body>
